@@ -15,7 +15,7 @@ import codecs
 # a='00000000000008a3a41b85b8b29ad444def299fee21793cd8b9e567eab02cd81'
 # print(stR(a))
 
-#######131028 floor Block Pow########
+#######131028 floor Block validatePow########
 ###############131028 block value################
 #   prev 39cb4aea452a9a3e3668501d54aa17c83b6205ec51067bf3bd0c000000000000
 #   merkle 4790a3b218b8e7052a33d66fdfaf2317f09ecc6aaac51f9104a3fd520b51478d
@@ -71,6 +71,7 @@ def validatePoW(header):
         print('--- Reject this Block')
 
 ###put in the block  value###
+#caution: hashprev,merkleroot is little endian and time,bits,nonce is integer
 block_version=''
 hashPrevBlock=''
 hashMerkleRoot=''
@@ -80,3 +81,5 @@ nonce=
 
 header=[block_version,hashPrevBlock,hashMerkleRoot,Time,Bits,nonce]
 validatePoW(header)
+
+#SHA-256(version+prevblockhash+murkleroothash+time+bits+nonce)<=target  ----->block complete
