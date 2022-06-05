@@ -1,5 +1,5 @@
 from Crypto.Cipher import DES3
-from Crypto.Cipher import SHA256 as SHA
+from Crypto.Hash import SHA256 as SHA
 from os import path
 KSIZE=1000 # 전역변수 1000정의
 
@@ -65,7 +65,18 @@ class myDES():
                     dec=dec[:-fillersize]
             h.write(dec)
             content=hh.read(KSIZE)
+def main():
+    keytext='samsjang'
+    ivtext='1234'
+    filename='plaintext.txt'
+    encfilename=filename+'.enc'
 
+
+    myCipher=myDES(keytext,ivtext)
+    ciphered=myCipher.enc(filename)
+    decipherd=myCipher.dec(encfilename)
+
+    main()
 
         
 
