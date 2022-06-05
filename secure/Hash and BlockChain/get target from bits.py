@@ -21,4 +21,4 @@ def getTarget(bits):
 
 Bits='f2b9441a'                                 #현재 bits의 값은 little endian으로 변환 후이다.
 getTarget(Bits)
-####SHA-256(version+prevblockhash+murkleroothash+time+bits+nonce)<=
+
