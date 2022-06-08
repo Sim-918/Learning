@@ -28,6 +28,7 @@ def decodeBitcoinVal(bits):
     binn=decode_hex(bits)[0]
     ret=codecs.encode(binn[::-1],'hex_codec')
     return ret
+    #target값 추출
 def getTarget(bits):
     bits=int(hex(bits),16)
     bit1=bits>>4*6
@@ -36,7 +37,7 @@ def getTarget(bits):
     sft=(bit1-0x3)*8
     target=base<<sft
     return target
-
+    #블록헤더 부분
 def validatePoW(header):
     block_version=header[0]
     hashPervBlock=header[1]
@@ -50,25 +51,25 @@ def validatePoW(header):
     bits_str=str(hex(Bits))[2:]
     nonce_str=str(hex(nonce))[2:]
     ts_str=str(hex(Time))[2:]
-
+    #블록헤더 모두 더하기
     header_hex=block_version+hashPervBlock+hashMerkleRoot+decodeBitcoinVal(ts_str).decode()+decodeBitcoinVal(bits_str).decode()+decodeBitcoinVal(nonce_str).decode()
     header_bin=decode_hex(header_hex)[0]
-
+    #해시 두번 시킴
     hash=sha(header_bin).digest()
     hash=sha(hash).digest()
     Pow=codecs.encode(hash[::-1],'hex_codec')
-
+    #bits를 이용해 실제target값 추출
     target=getTarget(Bits)
     target=str(target)
     target='0'*(66-len(target))+target[:]
 
     print('target\t=',target)
     print('PoW\t=',Pow)
-
+    
     if int(Pow,16)<=int(target,16):
-        print('+++ Accept this Block')
+        print('+++ Accept this Block')              #작업성공
     else:
-        print('--- Reject this Block')
+        print('--- Reject this Block')              #작업실패
 
 ###put in the block  value###
 #caution: hashprev,merkleroot is little endian and time,bits,nonce is integer
