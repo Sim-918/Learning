@@ -82,4 +82,4 @@ nonce=
 header=[block_version,hashPrevBlock,hashMerkleRoot,Time,Bits,nonce]
 validatePoW(header)
 
-#SHA-256(version+prevblockhash+murkleroothash+time+bits+nonce)<=target  ----->block complete
+#SHA-256(version+prevblockhash+murkleroothash+time+bits+nonce)<=target  ----->block accept
