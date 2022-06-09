@@ -39,7 +39,7 @@ def generateBitcoinAddress():
     #NO.4 3단계에서 얻은 값을 '0x00'을 추가
     encPubkey=b'\x00'+encPubkey
 
-    #NO.5 4단계에서 얻은 값의 SHA-256 해시값을 얻음
+    #NO.5 4단계에서 얻은 값의 SHA-256 해시를 두번 돌려 값을 얻음
     chunk=sha(sha(encPubkey).digest()).digest()
 
     #NO.6 5단계에서 얻는 값의 첫 4바이트를 체크섬이라 정의
