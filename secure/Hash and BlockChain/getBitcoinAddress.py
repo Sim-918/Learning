@@ -23,7 +23,7 @@ def generateBitcoinAddress():
     #WIF(Wallet Import Format)->비트코인 거래를 위한 약식개인키
     WIF=b58encode(c)
 
-    #NO.1 개인키를 이용해 ECDSA 공개키 획득
+    #NO.1 개인키를 이용해 ECDSA 공개키 획득 -> ecdsa.SigningKey
     signing_key=ecdsa.SigningKey.from_string(privkey,curve=ecdsa.SECP256k1)
     verifying_key=signing_key.get_verifying_key()
     pubkey=(verifying_key.to_string()).hex()
@@ -31,7 +31,7 @@ def generateBitcoinAddress():
     #NO.2 ECDSA 공개키의 앞부분에 '0x04'를 추가함
     pubkey='04'+pubkey
 
-    #NO.3 2단계에서 얻는 값의 SHA-256해시값을 얻고, 이 해시값에 RIPEMD-160을 적용한 값을 얻음
+    #NO.3 2단계에서 얻는 값의 SHA-256해시를 돌리고, 이 해시값에 RIPEMD-160을 적용한 값을 얻음 -> encPunkery=ripemd160(pub_sha).digest()
     #RIPEMD-160은 MD4기반의 해시 알고리즘, 32비트 연산에 최적
     pub_sha=sha(bytes.fromhex(pubkey)).digest()
     encPubkey=ripemd160(pub_sha).digest()
@@ -39,16 +39,16 @@ def generateBitcoinAddress():
     #NO.4 3단계에서 얻은 값을 '0x00'을 추가
     encPubkey=b'\x00'+encPubkey
 
-    #NO.5 4단계에서 얻은 값의 SHA-256 해시를 두번 돌려 값을 얻음
+    #NO.5 4단계에서 얻은 값의 SHA-256 해시값을 얻음 -> 해시를 두번 돌림 chunk=sha(sha(encPubkey).digest()).digest()
     chunk=sha(sha(encPubkey).digest()).digest()
 
-    #NO.6 5단계에서 얻는 값의 첫 4바이트를 체크섬이라 정의
+    #NO.6 5단계에서 얻는 값의 첫 4바이트를 체크섬이라 정의 -> chunk[:4]
     checksum=chunk[:4]
 
-    #NO.7 4단계에서 얻는 encPubkey에 체크섬을 더함
+    #NO.7 4단계에서 얻는 encPubkey에 체크섬을 더함 -> checksum+encpubkey
     hex_address=encPubkey+checksum
 
-    #NO.8 7단계에서 얻은 값의 Base58인코딩 한 값을 비트코인 주소로 함
+    #NO.8 7단계에서 얻은 값의 Base58인코딩 한 값을 비트코인 주소로 함 ->base58로 인코딩
     bitcoinAddress=b58encode(hex_address)
 
     #WIF와 생성된 비트코인 주소 출력
