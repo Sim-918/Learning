@@ -21,3 +21,9 @@ cv2.imshow("resize",new_image)
 
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+#이미지 축소 cv2.INTER_AREA
+# scale=0.2
+
+# new_image1=cv2.resize(org_image,None,fx=scale,fy=scale)
+# new_image2=cv2.resize(org_image,None,fx=scale,fy=scale,interpolation=cv2.INTER_AREA)
