@@ -1,0 +1,47 @@
+#히스토그램 분석
+#cv2.calcHist([입력이미지],[0],None,[계급의 수],[값의 범위])
+# import cv2
+# import numpy as np
+# import matplotlib.pylab as plt
+
+# org_image=cv2.imread("lenna.png",cv2.IMREAD_GRAYSCALE)
+
+# cv2.imshow("lenna",org_image)
+# cv2.waitKey(0)
+
+# hist=cv2.calcHist([org_image],[0],None,[256],[0,255])
+
+# x=np.arange(256)
+# plt.bar(x,hist[:,0])                                        #히스토그램 막대 그래프 그리기
+# plt.show()
+# cv2.destroyAllWindows()
+
+#히스토그램 노멀이미지,이퀄라저이미지
+
+import cv2
+import numpy as np
+import matplotlib.pylab as plt
+
+org_image=cv2.imread("night.png",cv2.IMREAD_GRAYSCALE)
+hist=cv2.calcHist([org_image],[0],None,[256],[0,255])
+
+new_image=cv2.normalize(org_image,None,0,255,cv2.NORM_MINMAX)
+new_hist=cv2.calcHist([new_image],[0],None,[256],[0,255])
+
+eq_image=cv2.equalizeHist(org_image)
+eq_hist=cv2.calcHist([eq_image],[0],None,[256],[0,255])
+
+cv2.imshow("org",org_image)
+cv2.imshow("normal",new_image)
+cv2.imshow("equalization",eq_image)
+
+cv2.waitKey(0)
+
+x=np.arange(256)
+plt.bar(x,hist[:,0],label="org")
+plt.bar(x,new_hist[:,0],label="normal")  
+plt.bar(x,eq_hist[:,0],label="equal")                                     
+plt.legend()                   
+plt.show()
+
+cv2.destroyAllWindows()
