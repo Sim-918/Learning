@@ -9,12 +9,13 @@
 import sys
 input=sys.stdin.readline
 
-n=list(input())
+n=input().split("-")
+ans=0
 
-for i in range(len(n)-1):
-    if n[i]=='-' or n[i]=='+':
-        print(i)
-        #-가 들어오면 -다음부터 모두 더하고 음수로 바꿈
-    # elif n[i]=='+':
-    #     print(i)
-    #     #+가 들어오면 
+for i in n[0].split("+"):       #split함수를 통해 n[0]은 "-"가 나오기 바로 전
+    ans+=int(i)
+
+for i in n[1:]:                 #n[:1]->"-"함수 뒤부터
+    for j in i.split("+"):      #"+"를 기준으로
+        ans-=int(j)             
+print(ans)
