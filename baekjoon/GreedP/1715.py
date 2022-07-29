@@ -45,3 +45,34 @@
 # for i in range(len(card)):
 #     cnt+=card[i]
 # print(cnt)
+
+
+          #정답코드
+ '''
+우선순위 큐 사용->heapq 모듈
+card 리스트에 input값을 push해서 card에 넣음
+리스트의 가장 작은 숫자 2개를 pop한다음 더함
+while 문을 사용해 card의 리스트 길이가 1이 아닐때 까지 반복한다음 더함
+'''
+import heapq
+import sys
+
+input=sys.stdin.readline
+
+n=int(input())
+
+card=[]
+for i in range(n):
+    num=int(input())
+    heapq.heappush(card, num)
+
+result=0
+while len(card)!=1:
+    st=heapq.heappop(card)
+    nd=heapq.heappop(card)
+    ssum=st+nd
+    result+=ssum
+    heapq.heappush(card, st+nd)
+
+print(result)
+
