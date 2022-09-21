@@ -17,11 +17,11 @@ def solution(dartResult):
         elif i in ["S", "D", "T"]:          #만약 i에 SDT라는 문자가 있으면
             num = stack.pop()               #stack=[pop을 당하 후의 값] num=stack의 마지막을 없앤 값
             stack.append(num ** dic[i])     #dic의 있는 i를 정수를 제곱
-        elif i == "#":                  #i에 #이라는 문자가 있으면
-            stack[-1] *= -1             #stack의 끝에 있는 리스트를 -1로 만듦
-        elif i == "*":                  #i에 *이라는 문자가 있으면
-            num = stack.pop()           #pop하고
-            if len(stack):              
+        elif i in "#":                  #i에 #이라는 문자가 있으면
+            stack[-1] *= -1             #stack의 #뒤에 있는 리스트를 -1로 만듦
+        elif i in "*":                  #i에 *이라는 문자가 있으면
+            num = stack.pop()           #stack=[pop을 당하 후의 값] num=stack의 마지막을 없앤 값
+            if len(stack)>0:            #만약 stack의 길이가 0보다 크면  
                 stack[-1] *= 2
             stack.append(2 * num)
 
