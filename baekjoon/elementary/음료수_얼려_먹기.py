@@ -1,7 +1,9 @@
 # nxm
 # 0이면 얼음생성 ->Ture
 # 1이면 False
-
+# DFS깊이우선탐색
+# 동작은 스택으로 이루어지고
+# 구현은 재귀형식으로
 n,m=map(int,input().split())
 
 graph=[]
