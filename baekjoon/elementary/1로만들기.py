@@ -1,7 +1,7 @@
 import sys
 input=sys.stdin.readline
 n=int(input())
-# d에 계산된 값을 저장ㄴ
+# Ai=min(Ai-1,Ai/2,Ai/3,Ai/5)+1
 d=[0]*(n+1)
 
 for i in range(2,n+1):
