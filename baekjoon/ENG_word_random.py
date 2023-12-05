@@ -16,36 +16,28 @@ sunji_list=word+word[:3]
 correct_cnt=0
 now_cnt=len(word)
 
-
-# 틀린문제
 X=[]
 
 for i in range(len(word)):
-    print('-'*20)
-    print("남은 문항 수:",now_cnt)
-    now_cnt-=1
+    tmp=word.pop(i)
+    sunji=[tmp]+random.sample(word,3)
+    random.shuffle(sunji)
+    print("문제: ",tmp[0])
 
-    # 문제 생성
-    test=[word[i][1]]
-    print(f"문제: ",word[i][0])
+    for k in range(len(sunji)):
+        print(k+1,sunji[k][1])
 
-    # 선지 담기
-    tmp=sunji_list[i+1:i+4]
-    for j in tmp:
-        test.append(j[1])
-    random.shuffle(test)
-    # 문제 출력
-    for p in range(len(test)):
-        print(p+1,test[p])
-    # 정답 입력 받기
-    user_input=int(input("정답: "))
-    
-    if word[i][1]==test[user_input-1]:
+    n=int(input("정답 ?: ")) 
+
+    word.insert(i,tmp)
+
+    if word[i]==sunji[n-1]:
         correct_cnt+=1
+        # print("정답")
     else:
         X.append(word[i])
-
-
+        # print("오답")
+    
 print(f"총 문항수 : ",len(word),end=' ')
 print(f"맞춘 수: ",correct_cnt)
 print("틀린문제",X)
